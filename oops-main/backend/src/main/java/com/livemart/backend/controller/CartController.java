@@ -21,52 +21,32 @@ public class CartController {
 
     @PostMapping("/add")
     public ResponseEntity<?> addToCart(@Valid @RequestBody AddToCartRequest request) {
-        try {
-            CartResponse response = cartService.addToCart(request);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        CartResponse response = cartService.addToCart(request);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping
     public ResponseEntity<?> getCart() {
-        try {
-            CartResponse response = cartService.getCart();
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        CartResponse response = cartService.getCart();
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/items/{itemId}")
     public ResponseEntity<?> updateCartItem(@PathVariable String itemId, 
                                            @Valid @RequestBody UpdateCartItemRequest request) {
-        try {
-            CartResponse response = cartService.updateCartItem(itemId, request.getQuantity());
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        CartResponse response = cartService.updateCartItem(itemId, request.getQuantity());
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/items/{itemId}")
     public ResponseEntity<?> removeFromCart(@PathVariable String itemId) {
-        try {
-            CartResponse response = cartService.removeFromCart(itemId);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        CartResponse response = cartService.removeFromCart(itemId);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/clear")
     public ResponseEntity<?> clearCart() {
-        try {
-            cartService.clearCart();
-            return ResponseEntity.ok(new MessageResponse("Cart cleared successfully"));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        cartService.clearCart();
+        return ResponseEntity.ok(new MessageResponse("Cart cleared successfully"));
     }
 }
