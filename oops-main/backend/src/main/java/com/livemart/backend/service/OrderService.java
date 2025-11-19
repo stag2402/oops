@@ -148,12 +148,13 @@ public class OrderService {
 
         User user = authService.getCurrentUser();
         
-        // Check if user is the retailer of any product in the order
-        boolean isRetailer = order.getItems().stream()
-                .anyMatch(item -> item.getProduct().getRetailer().getId().equals(user.getId()));
+        // Check if user is the retailer of ALL products in the order
+        // OR if the user is an ADMIN.
+        boolean isSoleRetailer = order.getItems().stream()
+                .allMatch(item -> item.getProduct().getRetailer().getId().equals(user.getId()));
 
-        if (!isRetailer && user.getRole() != User.UserRole.ADMIN) {
-            throw new RuntimeException("Unauthorized");
+        if (!isSoleRetailer && user.getRole() != User.UserRole.ADMIN) {
+            throw new RuntimeException("Unauthorized: You can only update the status of orders that contain products exclusively from your retail store.");
         }
 
         order.setStatus(newStatus);
@@ -219,3 +220,4 @@ public class OrderService {
                 .build();
     }
 }
+
