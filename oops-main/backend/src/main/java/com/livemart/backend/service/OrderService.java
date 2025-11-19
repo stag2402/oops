@@ -79,6 +79,8 @@ public class OrderService {
 
         // Create order items and update stock
         List<OrderItem> orderItems = new ArrayList<>();
+        List<Product> productsToUpdate = new ArrayList<>(); // <-- Collect updated products
+
         for (CartItem cartItem : cart.getItems()) {
             Product product = cartItem.getProduct();
             
@@ -93,10 +95,11 @@ public class OrderService {
 
             // Update stock
             product.setStockStatus(product.getStockStatus() - cartItem.getQuantity());
-            productRepository.save(product);
+            productsToUpdate.add(product); // <-- Collect updated product
         }
 
         orderItemRepository.saveAll(orderItems);
+        productRepository.saveAll(productsToUpdate); // <-- Batch save all updated products
         order.setItems(orderItems);
 
         // Mark cart as completed
@@ -220,4 +223,5 @@ public class OrderService {
                 .build();
     }
 }
+
 
