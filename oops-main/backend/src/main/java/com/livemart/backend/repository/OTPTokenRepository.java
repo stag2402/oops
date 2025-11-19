@@ -1,0 +1,16 @@
+package com.livemart.backend.repository;
+
+import com.livemart.backend.entity.OTPToken;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+
+@Repository
+public interface OTPTokenRepository extends JpaRepository<OTPToken, String> {
+    Optional<OTPToken> findByEmailAndToken(String email, String token);
+    void deleteByEmail(String email);
+    void deleteByExpiresBefore(LocalDateTime now);
+}
+
