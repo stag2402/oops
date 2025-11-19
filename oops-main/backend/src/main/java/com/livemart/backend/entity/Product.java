@@ -79,6 +79,9 @@ public class Product {
 
     // Helper methods
     public Double getDiscountedPrice() {
+        if (this.price == null) {
+            return 0.0; // Return 0.0 if the base price is null to prevent NPE.
+        }
         if (discountPercentage != null && discountPercentage > 0) {
             return price - (price * discountPercentage / 100);
         }
@@ -99,5 +102,6 @@ public class Product {
                 .orElse(0.0);
     }
 }
+
 
 
