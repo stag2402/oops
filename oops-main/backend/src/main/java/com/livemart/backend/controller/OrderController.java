@@ -25,53 +25,33 @@ public class OrderController {
     @PostMapping("/create")
     @PreAuthorize("hasRole('CUSTOMER')")
     public ResponseEntity<?> createOrder(@Valid @RequestBody CreateOrderRequest request) {
-        try {
-            OrderResponse response = orderService.createOrder(request);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        OrderResponse response = orderService.createOrder(request);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/my-orders")
     public ResponseEntity<?> getMyOrders() {
-        try {
-            List<OrderResponse> response = orderService.getMyOrders();
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        List<OrderResponse> response = orderService.getMyOrders();
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getOrder(@PathVariable String id) {
-        try {
-            OrderResponse response = orderService.getOrderById(id);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        OrderResponse response = orderService.getOrderById(id);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/tracking/{trackingId}")
     public ResponseEntity<?> getOrderByTrackingId(@PathVariable String trackingId) {
-        try {
-            OrderResponse response = orderService.getOrderByTrackingId(trackingId);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        OrderResponse response = orderService.getOrderByTrackingId(trackingId);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}/status")
     @PreAuthorize("hasAnyRole('RETAILER', 'ADMIN')")
     public ResponseEntity<?> updateOrderStatus(@PathVariable String id, 
                                                @Valid @RequestBody UpdateOrderStatusRequest request) {
-        try {
-            OrderResponse response = orderService.updateOrderStatus(id, request.getStatus());
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        OrderResponse response = orderService.updateOrderStatus(id, request.getStatus());
+        return ResponseEntity.ok(response);
     }
 }
