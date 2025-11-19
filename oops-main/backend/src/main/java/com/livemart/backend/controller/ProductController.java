@@ -1,4 +1,4 @@
-// ProductController.java
+// ProductController.java (CORRECTED)
 package com.livemart.backend.controller;
 
 import com.livemart.backend.dto.request.ProductRequest;
@@ -24,45 +24,29 @@ public class ProductController {
     @PostMapping
     @PreAuthorize("hasRole('RETAILER')")
     public ResponseEntity<?> createProduct(@Valid @RequestBody ProductRequest request) {
-        try {
-            ProductResponse response = productService.createProduct(request);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        ProductResponse response = productService.createProduct(request);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('RETAILER')")
     public ResponseEntity<?> updateProduct(@PathVariable String id, 
                                           @Valid @RequestBody ProductRequest request) {
-        try {
-            ProductResponse response = productService.updateProduct(id, request);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        ProductResponse response = productService.updateProduct(id, request);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('RETAILER')")
     public ResponseEntity<?> deleteProduct(@PathVariable String id) {
-        try {
-            productService.deleteProduct(id);
-            return ResponseEntity.ok(new MessageResponse("Product deleted successfully"));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        productService.deleteProduct(id);
+        return ResponseEntity.ok(new MessageResponse("Product deleted successfully"));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getProduct(@PathVariable String id) {
-        try {
-            ProductResponse response = productService.getProductById(id);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        ProductResponse response = productService.getProductById(id);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping
@@ -71,42 +55,26 @@ public class ProductController {
             @RequestParam(required = false) Double minPrice,
             @RequestParam(required = false) Double maxPrice,
             @RequestParam(required = false, defaultValue = "false") Boolean inStockOnly) {
-        try {
-            List<ProductResponse> response = productService.getAllProducts(categoryId, minPrice, maxPrice, inStockOnly);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        List<ProductResponse> response = productService.getAllProducts(categoryId, minPrice, maxPrice, inStockOnly);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/my-products")
     @PreAuthorize("hasRole('RETAILER')")
     public ResponseEntity<?> getMyProducts() {
-        try {
-            List<ProductResponse> response = productService.getProductsByRetailer();
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        List<ProductResponse> response = productService.getProductsByRetailer();
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/search")
     public ResponseEntity<?> searchProducts(@RequestParam String keyword) {
-        try {
-            List<ProductResponse> response = productService.searchProducts(keyword);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        List<ProductResponse> response = productService.searchProducts(keyword);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/featured")
     public ResponseEntity<?> getFeaturedProducts() {
-        try {
-            List<ProductResponse> response = productService.getFeaturedProducts();
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        List<ProductResponse> response = productService.getFeaturedProducts();
+        return ResponseEntity.ok(response);
     }
 }
