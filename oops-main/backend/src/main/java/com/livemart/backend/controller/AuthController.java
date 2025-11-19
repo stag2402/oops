@@ -24,63 +24,43 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request) {
-        try {
-            MessageResponse response = authService.register(request);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        MessageResponse response = authService.register(request);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/verify-otp")
     public ResponseEntity<?> verifyOTP(@Valid @RequestBody VerifyOTPRequest request) {
-        try {
-            AuthResponse response = authService.verifyOTP(request);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        AuthResponse response = authService.verifyOTP(request);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/resend-otp")
     public ResponseEntity<?> resendOTP(@RequestParam String email) {
-        try {
-            MessageResponse response = authService.resendOTP(email);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        MessageResponse response = authService.resendOTP(email);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request) {
-        try {
-            AuthResponse response = authService.login(request);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        AuthResponse response = authService.login(request);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/me")
     public ResponseEntity<?> getCurrentUser() {
-        try {
-            User user = authService.getCurrentUser();
-            UserResponse response = UserResponse.builder()
-                    .id(user.getId())
-                    .name(user.getName())
-                    .email(user.getEmail())
-                    .image(user.getImage())
-                    .role(user.getRole())
-                    .address(user.getAddress())
-                    .latitude(user.getLatitude())
-                    .longitude(user.getLongitude())
-                    .phoneNumber(user.getPhoneNumber())
-                    .emailVerified(user.getEmailVerified())
-                    .build();
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
-        }
+        User user = authService.getCurrentUser();
+        UserResponse response = UserResponse.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .email(user.getEmail())
+                .image(user.getImage())
+                .role(user.getRole())
+                .address(user.getAddress())
+                .latitude(user.getLatitude())
+                .longitude(user.getLongitude())
+                .phoneNumber(user.getPhoneNumber())
+                .emailVerified(user.getEmailVerified())
+                .build();
+        return ResponseEntity.ok(response);
     }
 }
