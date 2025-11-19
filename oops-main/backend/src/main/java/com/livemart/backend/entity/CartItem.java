@@ -34,5 +34,21 @@ public class CartItem {
 
     public Double getSubtotal() {
         return product.getDiscountedPrice() * quantity;
+
+        // Add these methods to CartItem.java
+
+    public com.livemart.backend.entity.Product getProduct() {
+        return this.product;
+    }
+
+    public int getQuantity() {
+        return this.quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+    
     }
 }
+
